@@ -33,6 +33,7 @@ $products = $statement->fetchAll(); // fetch: lấy 1 bản ghi đầu tiên th�
             <td><?= $value['price'] ?></td>
             <td><?= $value['quantity'] ?></td>
             <td>
+                <a href="edit-form.php?id=<?= $value['id']?>">Sửa</a>
                 <a href="remove.php?id=<?= $value['id']?>">Xóa</a>
             </td>
         </tr>
