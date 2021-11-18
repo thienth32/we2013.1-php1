@@ -19,7 +19,7 @@ $product = $stmt->fetch();
     <title>Document</title>
 </head>
 <body>
-    <form action="save-add.php" method="post" enctype="multipart/form-data">
+    <form action="save-edit.php?id=<?= $product['id']?>" method="post" enctype="multipart/form-data">
         <div>
             <label for="">Tên sản phẩm</label>
             <input type="text" name="name" value="<?= $product['name'] ?>">
