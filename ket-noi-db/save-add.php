@@ -5,11 +5,21 @@ require_once './db.php';
 $name = $_POST['name'];
 $price = $_POST['price'];
 $quantity = $_POST['quantity'];
+$file = $_FILES['image'];
+// echo "<pre>";
+// var_dump($file);
+// die;
+$filename = "";
+if($file['size'] > 0){
+    $filename = uniqid() . '-' . $file['name'];
+    move_uploaded_file($file['tmp_name'], 'uploads/' . $filename);
+    $filename = 'uploads/' . $filename;
+}
 
 $sql = "insert into products
-            (name, price, quantity)
+            (name, price, quantity, image)
         values 
-            ('$name', $price, $quantity)";  
+            ('$name', $price, $quantity, '$filename')";  
 $stmt = $connect->prepare($sql);
 $stmt->execute();
 header("location: index.php");

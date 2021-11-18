@@ -21,6 +21,7 @@ $products = $statement->fetchAll(); // fetch: lấy 1 bản ghi đầu tiên th�
         <th>Name</th>
         <th>Price</th>
         <th>Quantity</th>
+        <th>Image</th>
         <th>
             <a href="add-form.php">Tạo mới</a>
         </th>
@@ -32,6 +33,9 @@ $products = $statement->fetchAll(); // fetch: lấy 1 bản ghi đầu tiên th�
             <td><?= $value['name'] ?></td>
             <td><?= $value['price'] ?></td>
             <td><?= $value['quantity'] ?></td>
+            <td>
+                <img src="<?= $value['image'] ?>" width="100">
+            </td>
             <td>
                 <a href="edit-form.php?id=<?= $value['id']?>">Sửa</a>
                 <a href="remove.php?id=<?= $value['id']?>">Xóa</a>
