@@ -1,6 +1,6 @@
 <?php
 // tạo kết nối
-$connect = new PDO("mysql:host=127.0.0.1;dbname=php1_lab4;charset=utf8", "root", "12345678");
+require_once './db.php';
 // tạo câu lệnh sql
 $sql = "select * from products";
 // nạp câu sql vào kết nối
@@ -21,6 +21,9 @@ $products = $statement->fetchAll(); // fetch: lấy 1 bản ghi đầu tiên th�
         <th>Name</th>
         <th>Price</th>
         <th>Quantity</th>
+        <th>
+
+        </th>
     </thead>
     <tbody>
     <?php foreach ($products as $key => $value): ?>
@@ -29,6 +32,9 @@ $products = $statement->fetchAll(); // fetch: lấy 1 bản ghi đầu tiên th�
             <td><?= $value['name'] ?></td>
             <td><?= $value['price'] ?></td>
             <td><?= $value['quantity'] ?></td>
+            <td>
+                <a href="remove.php?id=<?= $value['id']?>">Xóa</a>
+            </td>
         </tr>
     <?php endforeach ?>
     </tbody>
