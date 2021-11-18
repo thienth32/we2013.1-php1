@@ -22,7 +22,7 @@ $products = $statement->fetchAll(); // fetch: lấy 1 bản ghi đầu tiên th�
         <th>Price</th>
         <th>Quantity</th>
         <th>
-
+            <a href="add-form.php">Tạo mới</a>
         </th>
     </thead>
     <tbody>
