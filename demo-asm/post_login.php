@@ -5,6 +5,21 @@ require_once './db.php';
 // nhận dữ liệu từ form
 $email = $_POST['email'];
 $password = $_POST['password'];
+$erros = "";
+if(empty($email)){
+    $erros .= "email=Hãy nhập email";
+}else if( !filter_var($email, FILTER_VALIDATE_EMAIL)){
+    $erros .= "email=Không đúng định dạng email";
+}
+
+if(empty($password)){
+    $erros .= "&password=Hãy nhập mật khẩu";
+}
+
+if(strlen($erros) > 0){
+    header("location: login.php?" . $erros);
+    die;
+}
 
 // chuẩn bị sẵn 1 câu lệnh sql để lấy user dựa vào email nhận đc từ form
 $getUserByEmail = "select * from users where email = '$email'";

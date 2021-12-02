@@ -52,6 +52,7 @@ $categories = executeQuery($getCategoryQuery, true);
         <th>ID</th>
         <th>Tên sp</th>
         <th>Danh mục</th>
+        <th>Ảnh sản phẩm</th>
         <th>Giá</th>
         <th>Số lượng</th>
         <th>
@@ -66,11 +67,14 @@ $categories = executeQuery($getCategoryQuery, true);
                 <td><?= $p['id']?></td>
                 <td><?= $p['name']?></td>
                 <td><?= $p['cate_name']?></td>
+                <td>
+                    <img src="<?= $p['image']?>" width="100">
+                </td>
                 <td><?= $p['price']?></td>
                 <td><?= $p['quantity']?></td>
                 <td>
                     <?php if(isset($_SESSION) && $_SESSION['auth']['role'] == 1): ?>
-                        <a href="">Sửa</a>
+                        <a href="edit-form.php?id=<?= $p['id'] ?>">Sửa</a>
                         <a href="">Xóa</a>
                     <?php endif ?>
                 </td>
