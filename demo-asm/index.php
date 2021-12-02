@@ -1,12 +1,19 @@
 <?php
 require_once './db.php';
+$searchCateId = isset($_GET['cate_id']) ? $_GET['cate_id'] : "";
+$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : "";
 // lấy ra danh sách các sản phẩm và danh mục của từng sản phẩm
 $getProductsQuery = "SELECT
                         p.*,
                         c.NAME AS cate_name 
                     FROM
                         products p
-                        JOIN categories c ON p.cate_id = c.id";
+                        JOIN categories c ON p.cate_id = c.id
+                    where p.name like '%$keyword%' ";
+
+if(empty($searchCateId) == false){
+    $getProductsQuery .= " and cate_id = $searchCateId";
+}
 $products = executeQuery($getProductsQuery, true);
 // lấy ra danh sách danh mục
 $getCategoryQuery = "select * from categories";
@@ -16,13 +23,23 @@ $categories = executeQuery($getCategoryQuery, true);
 ?>
 <form action="" method="get">
     <div>
+        <label for="">Từ khóa</label>
+        <input type="text" name="keyword" value="<?= $keyword ?>">
+    </div>
+    <div>
         <label for="">Danh mục</label>
         <select name="cate_id" id="">
             <option value="">Chọn tất cả</option>
             <?php foreach($categories as $ca): ?>
-                <option value="<?= $ca['id'] ?>"><?= $ca['name'] ?></option>
+                <?php
+                    $selected = $ca['id'] == $searchCateId ? "selected" : "";
+                ?>
+                <option <?= $selected ?> value="<?= $ca['id'] ?>"><?= $ca['name'] ?></option>
             <?php endforeach ?>
         </select>
+    </div>
+    <div>
+        <button type="submit">Tìm kiếm</button>
     </div>
 </form>
 
