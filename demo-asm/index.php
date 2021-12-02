@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once './db.php';
 $searchCateId = isset($_GET['cate_id']) ? $_GET['cate_id'] : "";
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : "";
@@ -21,6 +22,9 @@ $categories = executeQuery($getCategoryQuery, true);
 
 
 ?>
+<?php if(isset($_SESSION['auth'])):?>
+    <h3>Hello, <?= $_SESSION['auth']['name']?></h3>
+<?php endif?>
 <form action="" method="get">
     <div>
         <label for="">Từ khóa</label>
@@ -51,7 +55,9 @@ $categories = executeQuery($getCategoryQuery, true);
         <th>Giá</th>
         <th>Số lượng</th>
         <th>
-            <a href="">Tạo mới</a>
+            <?php if(isset($_SESSION) && $_SESSION['auth']['role'] == 1): ?>
+                <a href="">Tạo mới</a>
+            <?php endif ?>
         </th>
     </thead>
     <tbody>
@@ -63,8 +69,10 @@ $categories = executeQuery($getCategoryQuery, true);
                 <td><?= $p['price']?></td>
                 <td><?= $p['quantity']?></td>
                 <td>
-                    <a href="">Sửa</a>
-                    <a href="">Xóa</a>
+                    <?php if(isset($_SESSION) && $_SESSION['auth']['role'] == 1): ?>
+                        <a href="">Sửa</a>
+                        <a href="">Xóa</a>
+                    <?php endif ?>
                 </td>
             </tr>
         <?php endforeach ?>
